@@ -12,7 +12,7 @@
   "author": "Tim Ermilov <yamalight@gmail.com> (http://codezen.net)",
   "license": "MIT",
   "dependencies": {
-    "next": "^4.2.2",
+    "next": "^9.3.2",
     "react": "^16.2.0",
     "react-dom": "^16.2.0"
   }
