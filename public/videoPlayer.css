@@ -1,0 +1,293 @@
+/* Player-css */
+#select-controls {
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  background: rgb(59, 59, 59);
+  color: rgb(255, 255, 255);
+}
+#select-controls > span {
+  padding-top: 2px;
+}
+#select-controls > span,
+#select-controls > select {
+  margin-right: 10px;
+  font-size: 12px;
+}
+
+#video-player {
+  text-align: center;
+}
+#status-bar {
+  padding: 5px;
+  color: rgb(255, 255, 255);
+  font-size: 12px;
+}
+#status-bar.power_off {
+  background-color: red;
+}
+#status-bar.power_on {
+  background-color: green;
+}
+.video-canvas {
+  text-align: center;
+  height: 425px;
+  width: 600px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgb(185, 185, 185);
+  padding: 0px;
+  background-color: rgb(111, 111, 111);
+}
+video {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+.video-controls {
+  width: 600px;
+  text-align: center;
+  margin: 0 auto;
+  background-color: rgba(59, 59, 59, 0.5);
+  padding: 10px;
+  position: absolute;
+  bottom: 0;
+  border-top: 1px solid rgb(130, 129, 129);
+}
+.video-controls > button,
+.video-controls > button:hover,
+.video-controls > button:focus,
+.video-controls > button:active,
+#capture,
+#capture:hover,
+#capture:active,
+#capture:focus,
+#download > i {
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0);
+  border: 0;
+  box-shadow: none;
+  outline: none;
+  color: #fff;
+  font-size: 15px;
+}
+
+.video-controls > button:disabled {
+  cursor: not-allowed;
+}
+.video-controls > button:disabled > i {
+  color: gray !important;
+  box-shadow: none !important;
+}
+#capture-images,
+#capture-videos {
+  overflow-y: scroll;
+  max-height: 400px;
+  min-height: 400px;
+  max-width: 180px;
+  min-width: 180px;
+  border: 1px solid rgb(185, 185, 185);
+  padding: 5px;
+  position: relative;
+  padding-top: 20px;
+  background-color: rgb(111, 111, 111);
+}
+
+#capture-images > h2,
+#capture-videos > h2 {
+  padding: 10px;
+  background-color: rgb(253, 208, 7);
+  position: absolute;
+  width: 165px;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+}
+.video-wrapper > .video-time {
+  padding: 3px;
+  display: block;
+  background-color: rgb(59, 59, 59);
+  color: rgb(253, 208, 7);
+  margin-top: 5px;
+  font-size: 12px;
+}
+.captured-image,
+.video-wrapper {
+  position: relative;
+  overflow: hidden;
+  margin: 20px 0px;
+  border: 1px solid;
+  padding: 5px;
+  background-color: rgb(240, 240, 240);
+  border-radius: 3px;
+}
+.captured-image > i,
+.video-wrapper > i {
+  position: absolute;
+  cursor: pointer;
+  z-index: 100;
+  top: 5px;
+  left: 5px;
+  font-size: 14px;
+  border: 1px solid rgb(0, 0, 0);
+  padding: 3px;
+  background-color: rgb(211, 211, 211);
+  border-radius: 5px;
+  color: red;
+}
+.captured-image > a,
+.video-wrapper > a {
+  color: rgb(0, 0, 0);
+  font-size: 12px;
+  cursor: pointer;
+  position: relative;
+  width: 100%;
+  display: block;
+}
+.captured-image > a > i,
+.video-wrapper > a > i {
+  font-size: 15px;
+  position: absolute;
+  left: 15px;
+  top: 0px;
+  cursor: pointer;
+}
+#capture {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  z-index: 100;
+  cursor: pointer;
+}
+#capture > i {
+  font-size: 30px;
+  color: rgb(55, 55, 55);
+  border: 1px solid rgb(0, 0, 0);
+  padding: 5px;
+  border-radius: 5px;
+  background-color: rgb(211, 211, 211);
+}
+
+#videoOnOff.on > i {
+  color: #ff0000;
+  box-shadow: 0px 0px 10px #ff0000;
+}
+#muteUnmute > i.fa-microphone {
+  color: green;
+  box-shadow: 0px 0px 10px green;
+}
+#muteUnmute > i.fa-microphone-slash {
+  color: #ff0000;
+}
+#recordStop > i {
+  color: #ff0000;
+}
+
+#audioSource,
+#videoSource {
+  width: 200px;
+}
+#cssfilters-video,
+#screenshot-img {
+  width: 400px;
+  height: 300px;
+}
+
+#cssfilters-stream {
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid #ccc;
+}
+
+/* ==== recording status ==== */
+.recording-status {
+  color: #fff;
+  font-size: 13px;
+  display: flex;
+  padding: 10px;
+  position: fixed;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 100%;
+}
+#recording-time {
+  flex: auto;
+  text-align: end;
+  padding-right: 40px;
+}
+.recordingOn {
+  background-color: #004a7f;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  border: none;
+  color: #ffffff;
+  display: inline-block;
+  font-family: Arial;
+  font-size: 20px;
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  -webkit-animation: glowing 1500ms infinite;
+  -moz-animation: glowing 1500ms infinite;
+  -o-animation: glowing 1500ms infinite;
+  animation: glowing 1500ms infinite;
+  margin: -4px 10px;
+}
+@-webkit-keyframes glowing {
+  0% {
+    background-color: #b20000;
+    -webkit-box-shadow: 0 0 3px #b20000;
+  }
+  50% {
+    background-color: #ff0000;
+    -webkit-box-shadow: 0 0 40px #ff0000;
+  }
+  100% {
+    background-color: #b20000;
+    -webkit-box-shadow: 0 0 3px #b20000;
+  }
+}
+
+@-moz-keyframes glowing {
+  0% {
+    background-color: #b20000;
+    -moz-box-shadow: 0 0 3px #b20000;
+  }
+  50% {
+    background-color: #ff0000;
+    -moz-box-shadow: 0 0 40px #ff0000;
+  }
+  100% {
+    background-color: #b20000;
+    -moz-box-shadow: 0 0 3px #b20000;
+  }
+}
+
+@-o-keyframes glowing {
+  0% {
+    background-color: #b20000;
+    box-shadow: 0 0 3px #b20000;
+  }
+  50% {
+    background-color: #ff0000;
+    box-shadow: 0 0 40px #ff0000;
+  }
+  100% {
+    background-color: #b20000;
+    box-shadow: 0 0 3px #b20000;
+  }
+}
+
+@keyframes glowing {
+  0% {
+    background-color: #b20000;
+    box-shadow: 0 0 3px #b20000;
+  }
+  50% {
+    background-color: #ff0000;
+    box-shadow: 0 0 40px #ff0000;
+  }
+  100% {
+    background-color: #b20000;
+    box-shadow: 0 0 3px #b20000;
+  }
+}

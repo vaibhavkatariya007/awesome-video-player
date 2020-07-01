@@ -1,0 +1,12 @@
+{
+  "name": "VideoPlayer",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "npx watchify ./public/main.js -o ./public/bundle.js"
+  },
+  "devDependencies": {
+    "watchify": "^3.11.1"
+  }
+}

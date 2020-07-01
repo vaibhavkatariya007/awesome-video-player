@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Awesome Video Player</title>
+    <link rel="icon" href="favicon.ico" sizes="16x16" />
+    <link rel="stylesheet" href="reset.css" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- Header -->
+    <div id="header">
+      <h1 class="heading">Awesome Video Player</h1>
+      <div class="features">
+        <span class="feature-1">Click & Download Pictures</span>
+        <span class="feature-2">Record & Download Videos</span>
+      </div>
+    </div>
+    <!-- Main Content -->
+    <div id="content">
+      <div id="video-player">
+        <div id="select-controls" class="controls"></div>
+        <div id="video-box"></div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div id="footer">
+      <span class="copyright"
+        >&copy; All rights reserverd | Developed by Vibhu.</span
+      >
+    </div>
+    <script src="bundle.js"></script>
+    <script>
+      /// Here i have to initilize Player::::
+      /// We can pass the configurations::::
+      const options = {
+        statusEl: '#video-player',
+        showStatus: true,
+        enableCaptureImage: true,
+      };
+      AwesomePlayer.init('#video-box', options);
+    </script>
+  </body>
+</html>
+<!-- 
+
+  <div class="recording-status">
+    <span class="recordingOn"></span>
+    Recording
+  </div> -->
