@@ -51,7 +51,7 @@ body {
 
 /* content css */
 #content {
-  background-image: url('./dirt-texture.png');
+  background-image: url('../dirt-texture.png');
   background-size: contain;
   background-color: rgb(139, 139, 139);
   height: 100vh;

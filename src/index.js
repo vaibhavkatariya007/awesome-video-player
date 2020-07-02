@@ -8,9 +8,19 @@
     createVideoRender,
     renderRecordingStatus,
   } = require('./build_User_Interface');
+
+  /**--- assets Management ----*/
+  require('./assets/favicon.ico');
+  require('./assets/styles/reset.css');
+  require('./assets/styles/styles.css');
+  require('./assets/styles/videoFilters.css');
+  require('./assets/styles/videoPlayer.css');
+  /**--- assets Management ----*/
+
   let recordingElements = {};
 
   function gotDevices(deviceInfos) {
+    debugger;
     //console.log('DEVICES INFO::', deviceInfos);
     const SELECT_CONTOLS = CONF.DOC.querySelector('#select-controls');
     const SELECT_HEADER = CONF.DOC.createElement('span');
@@ -27,10 +37,10 @@
       option.value = deviceInfo.deviceId;
       if (deviceInfo.kind === 'audioinput') {
         option.text =
-          deviceInfo.label || 'microphone ' + (audioSelect.length + 1);
+          deviceInfo.label || 'microphone ' + (AUDIO_SELECT.length + 1);
         AUDIO_SELECT.appendChild(option);
       } else if (deviceInfo.kind === 'videoinput') {
-        option.text = deviceInfo.label || 'camera ' + (videoSelect.length + 1);
+        option.text = deviceInfo.label || 'camera ' + (VIDEO_SELECT.length + 1);
         VIDEO_SELECT.appendChild(option);
       } else {
         //console.log('Found another kind of device: ', deviceInfo);
@@ -68,6 +78,7 @@
   function gotStream(stream) {
     const videoCanvas = CONF.DOC.querySelector('video');
     const recordStopButton = CONF.DOC.querySelector('#recordStop');
+    const playPauseButton = CONF.DOC.querySelector('#playPause');
     const options = { mimeType: CONF.videoType };
     var recordedChunks = [];
     var mediaRecorder = new MediaRecorder(stream, options);
@@ -89,41 +100,19 @@
       createVideoRender(recordedChunks, recordingTime);
     };
 
-    function onRecordStartStop(event) {
+    function recording(event) {
       event.preventDefault();
       event.stopPropagation();
-      if (CONF.isVideoOn) {
-        const recordStopButton = CONF.DOC.querySelector('#recordStop');
-        const Child = recordStopButton.childNodes;
-        if (
-          !CONF.isRecording &&
-          mediaRecorder &&
-          mediaRecorder.state === 'inactive' &&
-          mediaRecorder.stream &&
-          mediaRecorder.stream.active
-        ) {
-          const { RECORDING_DIV, RECORDING_DATA } = renderRecordingStatus();
-          recordingElements = RECORDING_DATA;
-          recordedChunks = [];
-          mediaRecorder.start();
-          Child[0].classList.add('fa-stop');
-          Child[0].classList.remove('fa-video-camera');
-          CONF.isRecording = true;
-          const el = CONF.DOC.querySelector('#video-player');
-          el.appendChild(RECORDING_DIV);
-        } else {
-          Child[0].classList.add('fa-video-camera');
-          Child[0].classList.remove('fa-stop');
-          if (mediaRecorder.state !== 'inactive') {
-            mediaRecorder.stop();
-          }
-          CONF.isRecording = false;
-          const el = CONF.DOC.querySelector('#recording-indicator');
-          el && el.remove();
-        }
-      }
+      onRecordStartStop(mediaRecorder);
     }
-    recordStopButton.addEventListener('click', onRecordStartStop);
+    function playPauseFunc(event) {
+      event.preventDefault();
+      event.stopPropagation();
+      onPlayPause(mediaRecorder);
+    }
+
+    recordStopButton.addEventListener('click', recording);
+    playPauseButton.addEventListener('click', playPauseFunc);
   }
 
   /** ------------------ Action Handlers -------- */
@@ -148,12 +137,16 @@
   }
 
   function handleError(error) {
-    console.error('Error: ', error);
+    console.log('Error: ', error);
   }
 
   function onTurnOnOff() {
     const videoCanvas = CONF.DOC.querySelector('video');
     const POWER_BUTTON = CONF.DOC.getElementById('videoOnOff');
+    if (CONF.isRecording) {
+      alert('Complete recording first.');
+      return;
+    }
     if (!CONF.isVideoOn) {
       CONF.Media.enumerateDevices()
         .then(gotDevices)
@@ -162,11 +155,13 @@
       CONF.isVideoOn = true;
       POWER_BUTTON.classList.add('on');
       POWER_BUTTON.classList.remove('off');
+      POWER_BUTTON.title = 'Power Off';
     } else {
       videoCanvas.pause();
       videoCanvas.srcObject = null;
       POWER_BUTTON.classList.add('off');
       POWER_BUTTON.classList.remove('on');
+      POWER_BUTTON.title = 'Power On';
       CONF.isVideoOn = false;
       if (window.stream) {
         const tracks = window.stream.getTracks();
@@ -181,25 +176,76 @@
     updateButtonStatus();
   }
 
-  function onPlayPause(event) {
-    event.preventDefault();
-    event.stopPropagation();
+  function onRecordStartStop(mediaRecorder) {
+    if (CONF.isVideoOn) {
+      if (!CONF.isPlaying) {
+        alert('Play video first.');
+        return;
+      }
+      const recordStopButton = CONF.DOC.querySelector('#recordStop');
+      const Child = recordStopButton.childNodes;
+      if (
+        !CONF.isRecording &&
+        mediaRecorder &&
+        mediaRecorder.state === 'inactive' &&
+        mediaRecorder.stream &&
+        mediaRecorder.stream.active
+      ) {
+        const { RECORDING_DIV, RECORDING_DATA } = renderRecordingStatus();
+        recordingElements = RECORDING_DATA;
+        recordedChunks = [];
+        mediaRecorder.start();
+        Child[0].classList.add('fa-stop');
+        Child[0].classList.remove('fa-video-camera');
+        Child[0].title = 'Stop Video Recording';
+        CONF.isRecording = true;
+        const el = CONF.DOC.querySelector('#video-player');
+        el.appendChild(RECORDING_DIV);
+      } else {
+        Child[0].classList.add('fa-video-camera');
+        Child[0].classList.remove('fa-stop');
+        Child[0].title = 'Start Video Recording';
+        if (mediaRecorder.state !== 'inactive') {
+          mediaRecorder.stop();
+        }
+        CONF.isRecording = false;
+        const el = CONF.DOC.querySelector('#recording-indicator');
+        el && el.remove();
+      }
+    }
+  }
+
+  function onPlayPause(mediaRecorder) {
+    console.log('mediaRecorder::', mediaRecorder);
     if (CONF.isVideoOn) {
       const videoCanvas = CONF.DOC.querySelector('video');
       const playPauseButton = CONF.DOC.querySelector('#playPause');
       const Child = playPauseButton.childNodes;
       if (!CONF.isPlaying) {
         videoCanvas.play();
+        if (mediaRecorder.state === 'paused') {
+          mediaRecorder.resume();
+        }
         CONF.isPlaying = true;
         Child[0].classList.add('fa-pause');
         Child[0].classList.remove('fa-play');
-        recordingElements && recordingElements.start();
+        Child[0].title = 'Pause Video';
+        if (mediaRecorder.state !== 'inactive') {
+          recordingElements && recordingElements.start();
+        }
       } else {
         CONF.isPlaying = false;
         videoCanvas.pause();
+        if (mediaRecorder.state === 'recording') {
+          mediaRecorder.pause();
+        }
         Child[0].classList.add('fa-play');
         Child[0].classList.remove('fa-pause');
-        recordingElements && recordingElements.stop();
+        Child[0].title = 'Play Video';
+
+        if (mediaRecorder.state !== 'inactive') {
+          recordingElements && recordingElements.stop();
+        }
       }
     }
   }
@@ -213,9 +259,11 @@
       if (videoCanvas.muted) {
         Child[0].classList.add('fa-microphone-slash');
         Child[0].classList.remove('fa-microphone');
+        Child[0].title = 'Voice Recording Stopped';
       } else {
         Child[0].classList.add('fa-microphone');
         Child[0].classList.remove('fa-microphone-slash');
+        Child[0].title = 'Voice Recording';
       }
     }
   }
@@ -227,6 +275,7 @@
       buttonId: 'videoOnOff',
       buttonClasses: ['off'],
       iconDefaultClass: 'fa-power-off',
+      title: 'Power On',
     },
     {
       func: () => {
@@ -235,18 +284,23 @@
       buttonId: 'recordStop',
       buttonClasses: [],
       iconDefaultClass: 'fa-video-camera',
+      title: 'Start Video Recording',
     },
     {
-      func: onPlayPause,
+      func: () => {
+        console.log('PLAY/PAUSE Button Clicked');
+      },
       buttonId: 'playPause',
       buttonClasses: [],
       iconDefaultClass: 'fa-pause',
+      title: 'Pause Video',
     },
     {
       func: onMuteUnmute,
       buttonId: 'muteUnmute',
       buttonClasses: [],
       iconDefaultClass: 'fa-microphone',
+      title: 'Voice Recording',
     },
   ];
 

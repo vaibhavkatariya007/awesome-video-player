@@ -4,11 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Awesome Video Player</title>
-    <link rel="icon" href="favicon.ico" sizes="16x16" />
-    <link rel="stylesheet" href="reset.css" />
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="shortcut icon" href="favicon.ico" />
   </head>
-  <body>
+  <body onload="loadPlayer();">
     <!-- Header -->
     <div id="header">
       <h1 class="heading">Awesome Video Player</h1>
@@ -17,6 +15,7 @@
         <span class="feature-2">Record & Download Videos</span>
       </div>
     </div>
+
     <!-- Main Content -->
     <div id="content">
       <div id="video-player">
@@ -30,23 +29,18 @@
       <span class="copyright"
         >&copy; All rights reserverd | Developed by Vibhu.</span
       >
+      <script>
+        /// Here i have to initilize Player::::
+        /// We can pass the configurations::::
+        function loadPlayer() {
+          const options = {
+            statusEl: '#video-player',
+            showStatus: true,
+            enableCaptureImage: true,
+          };
+          AwesomePlayer.init('#video-box', options);
+        }
+      </script>
     </div>
-    <script src="bundle.js"></script>
-    <script>
-      /// Here i have to initilize Player::::
-      /// We can pass the configurations::::
-      const options = {
-        statusEl: '#video-player',
-        showStatus: true,
-        enableCaptureImage: true,
-      };
-      AwesomePlayer.init('#video-box', options);
-    </script>
   </body>
 </html>
-<!-- 
-
-  <div class="recording-status">
-    <span class="recordingOn"></span>
-    Recording
-  </div> -->

@@ -32,8 +32,6 @@ function applyFilters() {
 /** --- Utils --- */
 const ArrayOfStyleSheets = [
   'http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css',
-  'videoFilters.css',
-  'videoPlayer.css',
 ];
 function loadCSS() {
   // make a stylesheet link
@@ -60,7 +58,7 @@ function createCtrlButton(
   const BUTTON = CONF.DOC.createElement('button');
   BUTTON.id = buttonId;
   BUTTON.disabled = buttonId !== 'videoOnOff';
-  // BUTTON.title = title;
+  BUTTON.title = title;
   if (buttonClasses && buttonClasses.length) {
     BUTTON.classList.add(...buttonClasses);
   }
@@ -78,12 +76,13 @@ function createVideoControls(BUTTON_CTRLS) {
   BUTTON_CTRLS &&
     BUTTON_CTRLS.length &&
     BUTTON_CTRLS.forEach(
-      ({ func, buttonId, buttonClasses, iconDefaultClass }) => {
+      ({ func, buttonId, buttonClasses, iconDefaultClass, title }) => {
         const Generated_Button = createCtrlButton(
           func,
           buttonId,
           buttonClasses,
-          iconDefaultClass
+          iconDefaultClass,
+          title
         );
         VIDEO_CTRLS.appendChild(Generated_Button);
       }
@@ -116,7 +115,7 @@ function createImageCanvas(videoData) {
   LINK.href = canvas.toDataURL();
   LINK.title = 'Download Image';
   DIV.appendChild(LINK);
-  CONF.DOC.getElementById('capture-images').appendChild(DIV);
+  CONF.DOC.querySelector('#capture-images>#all-images').appendChild(DIV);
 }
 
 function createVideoRender(recordedChunks, recordingTime) {
@@ -156,7 +155,7 @@ function createVideoRender(recordedChunks, recordingTime) {
     videoWrapper.appendChild(downloadVideoLink);
     videoWrapper.appendChild(displayTime);
 
-    const displayVideo = CONF.DOC.querySelector('#capture-videos');
+    const displayVideo = CONF.DOC.querySelector('#capture-videos>#all-videos');
     displayVideo.appendChild(videoWrapper);
     updateVideoCount(++totalVideosCaptured);
   }
@@ -199,20 +198,26 @@ function createVideoPlayer(controlsData, enableCaptureImage) {
 function createVideoBox() {
   /// Create Image Receiver Box Ui
   const VIDEO_RECEVIER_BOX = CONF.DOC.createElement('div');
+  const ALL_VIDEOS = CONF.DOC.createElement('div');
   VIDEO_RECEVIER_BOX.id = 'capture-videos';
+  ALL_VIDEOS.id = 'all-videos';
   const VIDEO_RECEVIER_BOX_HEADER = CONF.DOC.createElement('h2');
   VIDEO_RECEVIER_BOX_HEADER.innerHTML = `Videos Captured {${totalVideosCaptured}}`;
   VIDEO_RECEVIER_BOX.appendChild(VIDEO_RECEVIER_BOX_HEADER);
+  VIDEO_RECEVIER_BOX.appendChild(ALL_VIDEOS);
   return VIDEO_RECEVIER_BOX;
 }
 
 function createImageBox() {
   /// Create Image Receiver Box Ui
   const IMAGE_RECEVIER_BOX = CONF.DOC.createElement('div');
+  const ALL_IMAGES = CONF.DOC.createElement('div');
   IMAGE_RECEVIER_BOX.id = 'capture-images';
+  ALL_IMAGES.id = 'all-images';
   const IMAGE_RECEVIER_BOX_HEADER = CONF.DOC.createElement('h2');
   IMAGE_RECEVIER_BOX_HEADER.innerHTML = `Images Captured {${totalImagesClicked}}`;
   IMAGE_RECEVIER_BOX.appendChild(IMAGE_RECEVIER_BOX_HEADER);
+  IMAGE_RECEVIER_BOX.appendChild(ALL_IMAGES);
   return IMAGE_RECEVIER_BOX;
 }
 
