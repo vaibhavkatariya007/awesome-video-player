@@ -20,7 +20,6 @@
   let recordingElements = {};
 
   function gotDevices(deviceInfos) {
-    debugger;
     //console.log('DEVICES INFO::', deviceInfos);
     const SELECT_CONTOLS = CONF.DOC.querySelector('#select-controls');
     const SELECT_HEADER = CONF.DOC.createElement('span');
@@ -59,18 +58,27 @@
     const AUDIO_SELECT = CONF.DOC.querySelector('#audioSource');
     const VIDEO_SELECT = CONF.DOC.querySelector('#videoSource');
 
-    const constraints = {
-      audio: {
-        deviceId: { exact: AUDIO_SELECT.value },
-      },
-      video: {
-        deviceId: { exact: VIDEO_SELECT.value },
-        width: { exact: 340 },
-        height: { exact: 280 },
-      },
-      // video: true,
-      // audio: true,
+    let constraints = {
+      video: true,
+      audio: true,
     };
+    if (
+      AUDIO_SELECT.value !== '' &&
+      AUDIO_SELECT.value !== null &&
+      VIDEO_SELECT.value !== '' &&
+      VIDEO_SELECT.value !== null
+    ) {
+      constraints = {
+        audio: {
+          deviceId: { exact: AUDIO_SELECT.value },
+        },
+        video: {
+          deviceId: { exact: VIDEO_SELECT.value },
+          width: { exact: 340 },
+          height: { exact: 280 },
+        },
+      };
+    }
 
     CONF.Media.getUserMedia(constraints).then(gotStream).catch(handleError);
   }
@@ -216,7 +224,6 @@
   }
 
   function onPlayPause(mediaRecorder) {
-    console.log('mediaRecorder::', mediaRecorder);
     if (CONF.isVideoOn) {
       const videoCanvas = CONF.DOC.querySelector('video');
       const playPauseButton = CONF.DOC.querySelector('#playPause');
@@ -278,18 +285,14 @@
       title: 'Power On',
     },
     {
-      func: () => {
-        console.log('Record button clicked..');
-      },
+      func: null,
       buttonId: 'recordStop',
       buttonClasses: [],
       iconDefaultClass: 'fa-video-camera',
       title: 'Start Video Recording',
     },
     {
-      func: () => {
-        console.log('PLAY/PAUSE Button Clicked');
-      },
+      func: null,
       buttonId: 'playPause',
       buttonClasses: [],
       iconDefaultClass: 'fa-pause',

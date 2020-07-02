@@ -62,7 +62,9 @@ function createCtrlButton(
   if (buttonClasses && buttonClasses.length) {
     BUTTON.classList.add(...buttonClasses);
   }
-  BUTTON.onclick = fn;
+  if (fn) {
+    BUTTON.onclick = fn;
+  }
   const ICON = CONF.DOC.createElement('i');
   ICON.classList.add('fa', iconInitialClass);
   BUTTON.appendChild(ICON);
