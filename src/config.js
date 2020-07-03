@@ -4,6 +4,7 @@ const Window = window;
 const DOC = document;
 
 // Initial configurations:
+const isAccessDenied = false;
 const isRecording = false;
 const isPlaying = true;
 const isVideoOn = false;
@@ -53,6 +54,7 @@ module.exports = {
   Media,
   Window,
   DOC,
+  isAccessDenied,
   isRecording,
   isPlaying,
   isVideoOn,

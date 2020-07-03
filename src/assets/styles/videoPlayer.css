@@ -23,6 +23,13 @@
   color: rgb(255, 255, 255);
   font-size: 12px;
 }
+#status-bar > i {
+  float: right;
+  position: relative;
+  right: 15px;
+  cursor: pointer;
+  font-size: 15px;
+}
 #status-bar.power_off {
   background-color: red;
 }
@@ -216,6 +223,14 @@ video {
   top: 0;
   background-color: rgba(0, 0, 0, 0.5);
   width: 100%;
+  z-index: 1000;
+}
+.recording-status > i {
+  float: right;
+  position: relative;
+  right: 20px;
+  cursor: pointer;
+  font-size: 15px;
 }
 #recording-time {
   flex: auto;
@@ -298,4 +313,30 @@ video {
     background-color: #b20000;
     box-shadow: 0 0 3px #b20000;
   }
+}
+
+/* error ui */
+
+#error-unwanted {
+  position: fixed;
+  top: 0;
+  background-color: rgb(255, 0, 0);
+  width: 100%;
+  color: rgb(255, 255, 255);
+  font-size: 12px;
+  padding: 5px;
+  z-index: 10000;
+}
+#error-unwanted > span {
+  margin: 3px;
+  padding: 3px;
+  background-color: rgb(253, 208, 7);
+  color: rgb(0, 0, 0);
+}
+#error-unwanted > i {
+  float: right;
+  position: relative;
+  right: 15px;
+  cursor: pointer;
+  font-size: 15px;
 }

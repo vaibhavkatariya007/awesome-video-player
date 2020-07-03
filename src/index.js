@@ -7,6 +7,7 @@
     createStatusBar,
     createVideoRender,
     renderRecordingStatus,
+    renderUnwantedError,
   } = require('./build_User_Interface');
 
   /**--- assets Management ----*/
@@ -121,31 +122,53 @@
 
     recordStopButton.addEventListener('click', recording);
     playPauseButton.addEventListener('click', playPauseFunc);
+    updateStatus();
+    updateButtonStatus();
+    CONF.isAccessDenied = false;
+    console.log('Camera And Microphone Access Permission Granted.');
   }
 
   /** ------------------ Action Handlers -------- */
   function updateStatus() {
     const status = CONF.isVideoOn;
     const statusBar = CONF.DOC.querySelector('#status-bar');
-    statusBar.className = status ? 'power_on' : 'power_off';
-    statusBar.childNodes[0].innerHTML = status
-      ? 'Camera is Powered On'
-      : 'Camera is Powered Off';
+    if (statusBar) {
+      statusBar.className = status ? 'power_on' : 'power_off';
+      statusBar.childNodes[0].innerHTML = status
+        ? 'Camera is Powered On'
+        : 'Camera is Powered Off';
+    }
   }
 
   function updateButtonStatus() {
     const videoControls = CONF.DOC.querySelector(
       '.video-canvas>.video-controls'
     );
-    videoControls.childNodes.forEach((node) => {
-      if (node.id !== 'videoOnOff') {
-        node.disabled = !CONF.isVideoOn;
-      }
-    });
+    if (videoControls) {
+      videoControls.childNodes.forEach((node) => {
+        if (node.id !== 'videoOnOff') {
+          node.disabled = !CONF.isVideoOn;
+        }
+      });
+    }
   }
 
   function handleError(error) {
     console.log('Error: ', error);
+    if (error.message === 'Permission denied') {
+      CONF.isAccessDenied = true;
+      const link = {
+        name: 'Reset Link',
+        redirect:
+          'For Reseting Permission Copy: chrome://settings/content#media-stream-mic',
+      };
+      const errorEl = renderUnwantedError(
+        'User has denied access for camera and microphone. kindly, reset you settings for respective domain.',
+        link
+      );
+      const el = CONF.DOC.querySelector('#video-player');
+      el.appendChild(errorEl);
+    }
   }
 
   function onTurnOnOff() {
@@ -179,9 +202,9 @@
       const el = CONF.DOC.querySelector('#recording-indicator');
       SELECT_CONTOLS.innerHTML = null;
       el && el.remove();
+      updateStatus();
+      updateButtonStatus();
     }
-    updateStatus();
-    updateButtonStatus();
   }
 
   function onRecordStartStop(mediaRecorder) {

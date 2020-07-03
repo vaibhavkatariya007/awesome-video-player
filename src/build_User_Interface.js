@@ -94,6 +94,9 @@ function createVideoControls(BUTTON_CTRLS) {
 
 function createImageCanvas(videoData) {
   // Generate Dynamic file Names:::
+  if (CONF.isAccessDenied) {
+    return;
+  }
   const CURRENT_TIME = DATE.getTime();
   const DIV = CONF.DOC.createElement('div');
   DIV.classList.add('captured-image');
@@ -121,6 +124,9 @@ function createImageCanvas(videoData) {
 }
 
 function createVideoRender(recordedChunks, recordingTime) {
+  if (CONF.isAccessDenied) {
+    return;
+  }
   if (recordedChunks && recordedChunks.length) {
     const CURRENT_TIME = DATE.getTime();
     const videoWrapper = CONF.DOC.createElement('div');
@@ -232,7 +238,14 @@ function createStatusBar() {
   STATUS_BAR_TEXT.innerHTML = CONF.isVideoOn
     ? 'Camera is Powered On'
     : 'Camera is Powered Off';
+
+  const STATUS_BAR_CLOSE = CONF.DOC.createElement('i');
+  STATUS_BAR_CLOSE.classList.add('fa', 'fa-times-circle-o');
+  STATUS_BAR_CLOSE.onclick = (event) => event.target.parentNode.remove();
+
   STATUS_BAR.appendChild(STATUS_BAR_TEXT);
+  STATUS_BAR.appendChild(STATUS_BAR_CLOSE);
+
   return STATUS_BAR;
 }
 
@@ -297,10 +310,30 @@ function renderRecordingStatus() {
   RECORDING_INDICATOR.className = 'recordingOn';
   RECORDING_DIV.prepend(RECORDING_INDICATOR);
   RECORDING_DIV.appendChild(RECORDING_TIMER);
+  const RECORDING_DIV_CLOSE = CONF.DOC.createElement('i');
+  RECORDING_DIV_CLOSE.classList.add('fa', 'fa-times-circle-o');
+  RECORDING_DIV.appendChild(RECORDING_DIV_CLOSE);
   return {
     RECORDING_DIV,
     RECORDING_DATA,
   };
+}
+
+function renderUnwantedError(msg, link) {
+  const ERROR_DIV = CONF.DOC.createElement('div');
+  ERROR_DIV.id = 'error-unwanted';
+  ERROR_DIV.innerHTML = msg;
+
+  if (link && link.name && link.redirect) {
+    const LINK = CONF.DOC.createElement('span');
+    LINK.innerHTML = link.redirect;
+    ERROR_DIV.appendChild(LINK);
+  }
+  const ERROR_CLOSE = CONF.DOC.createElement('i');
+  ERROR_CLOSE.classList.add('fa', 'fa-times-circle-o');
+  ERROR_CLOSE.onclick = (event) => event.target.parentNode.remove();
+  ERROR_DIV.appendChild(ERROR_CLOSE);
+  return ERROR_DIV;
 }
 
 module.exports = {
@@ -310,4 +343,5 @@ module.exports = {
   createStatusBar,
   createVideoRender,
   renderRecordingStatus,
+  renderUnwantedError,
 };
