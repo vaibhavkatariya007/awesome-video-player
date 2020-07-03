@@ -107,6 +107,7 @@
       const recordingTime =
         recordingElements && recordingElements.getRecordedTime();
       createVideoRender(recordedChunks, recordingTime);
+      recordedChunks = [];
     };
 
     function recording(event) {
