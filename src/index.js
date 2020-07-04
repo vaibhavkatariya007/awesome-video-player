@@ -13,10 +13,13 @@
 
   /**--- assets Management ----*/
   require('./assets/favicon.ico');
+  require('./assets/logo.png');
   require('./assets/styles/reset.css');
   require('./assets/styles/styles.css');
   require('./assets/styles/videoFilters.css');
   require('./assets/styles/videoPlayer.css');
+  //require('./manifest.json');
+  // require('./serviceworker.js');
   /**--- assets Management ----*/
 
   let recordingElements = {};

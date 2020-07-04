@@ -9,8 +9,11 @@
     />
     <title>Awesome Video Player</title>
     <link rel="shortcut icon" href="favicon.ico" />
+    <link rel="apple-touch-icon" href="logo.png" />
+    <link rel="manifest" href="manifest.json" />
   </head>
   <body onload="loadPlayer();">
+    <noscript>You need to enable JavaScript to run this app.</noscript>
     <!-- Header -->
     <div id="header">
       <h1 class="heading">Awesome Video Player</h1>
@@ -43,6 +46,16 @@
             enableCaptureImage: true,
           };
           AwesomePlayer.init('#video-box', options);
+        }
+      </script>
+      <script>
+        if ('serviceWorker' in navigator) {
+          window.addEventListener('load', () => {
+            navigator.serviceWorker
+              .register('./serviceworker.js')
+              .then((reg) => console.log('Success: ', reg.scope))
+              .catch((err) => console.log('Failure: ', err));
+          });
         }
       </script>
     </div>
