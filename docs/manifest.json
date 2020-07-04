@@ -3,7 +3,7 @@
   "name": "Awesome Player App",
   "icons": [
     {
-      "src": "/logo.png",
+      "src": "/awesome-video-player/logo.png",
       "type": "image/png",
       "sizes": "1024x1024"
     }
