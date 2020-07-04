@@ -1,4 +1,5 @@
 (function (window) {
+  'use strict';
   const CONF = require('./config');
   const {
     createVideoPlayer,
@@ -225,7 +226,6 @@
       ) {
         const { RECORDING_DIV, RECORDING_DATA } = renderRecordingStatus();
         recordingElements = RECORDING_DATA;
-        recordedChunks = [];
         mediaRecorder.start();
         Child[0].classList.add('fa-stop');
         Child[0].classList.remove('fa-video-camera');
