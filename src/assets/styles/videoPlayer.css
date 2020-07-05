@@ -340,3 +340,45 @@ video {
   cursor: pointer;
   font-size: 15px;
 }
+
+@media only screen and (max-width: 600px) {
+  #video-box > div {
+    margin-top: 10px;
+  }
+  .video-canvas {
+    height: 300px;
+    width: 100%;
+  }
+  .video-controls,
+  #capture-images > h2,
+  #capture-videos > h2 {
+    width: 100%;
+    padding: 5px;
+  }
+  #capture-images,
+  #capture-videos {
+    max-width: 100%;
+    min-width: 100%;
+    max-height: 220px;
+    min-height: 220px;
+  }
+  #capture-images > #all-images,
+  #capture-videos > #all-videos {
+    display: flex;
+    overflow-x: auto;
+    overflow-y: auto;
+    flex-direction: row;
+  }
+  .captured-image,
+  .video-wrapper {
+    width: 250px;
+    flex: none;
+    margin: 5px 0px;
+    margin-left: 10px;
+    height: 190px;
+  }
+  #select-controls > span,
+  #select-controls > select {
+    display: none;
+  }
+}

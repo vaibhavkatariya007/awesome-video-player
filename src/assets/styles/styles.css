@@ -72,3 +72,26 @@ body {
   font-size: 13px;
   border-top: 1px solid rgb(207, 207, 207);
 }
+
+/*==== Fix for mobile devices  ====*/
+
+@media only screen and (max-width: 600px) {
+  #video-box {
+    display: block;
+    justify-content: initial;
+    padding: 0px 10px;
+  }
+  #header h1 {
+    font-size: 18px;
+    font-family: cursive;
+  }
+  #header {
+    padding: 5px;
+  }
+  #header > .features {
+    margin-top: 5px;
+  }
+  #content {
+    background-image: none;
+  }
+}
