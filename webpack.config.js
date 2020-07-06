@@ -2,11 +2,14 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const WebpackBundleAnalyzer = require('webpack-bundle-analyzer')
   .BundleAnalyzerPlugin;
 
 const WebpackCompressionPlugin = require('compression-webpack-plugin');
-
+//'style-loader'
 module.exports = {
   entry: './src/index.js',
   output: {
@@ -16,7 +19,7 @@ module.exports = {
   module: {
     rules: [
       { test: /\.js$/, use: 'babel-loader' },
-      { test: /\.css$/, use: ['style-loader', 'css-loader'] },
+      { test: /\.css$/, use: [MiniCssExtractPlugin.loader, 'css-loader'] },
       { test: /\.html$/, use: ['html-loader'] },
       {
         test: /\.jpe?g$|\.ico$|\.gif$|\.png$|\.svg$|\.woff$|\.ttf$|\.wav$|\.mp3$/,
@@ -30,9 +33,17 @@ module.exports = {
     port: 3000,
   },
   plugins: [
+    new MiniCssExtractPlugin({
+      filename: '[name].[contentHash].css',
+    }),
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: 'src/index.html',
+      minify: {
+        removeAttributeQuotes: true,
+        collapseWhitespace: true,
+        removeComments: true,
+      },
     }),
     new CopyPlugin({
       patterns: [
@@ -55,6 +66,7 @@ module.exports = {
     }),
   ],
   optimization: {
+    minimizer: [new OptimizeCssAssetsPlugin(), new TerserPlugin()],
     splitChunks: {
       cacheGroups: {
         vendors: {
