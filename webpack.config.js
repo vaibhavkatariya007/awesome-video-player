@@ -14,7 +14,7 @@ module.exports = {
   entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'awesome_bundle.js',
+    filename: '[name].[contentHash].awesome.bundle.js',
   },
   module: {
     rules: [
@@ -34,7 +34,7 @@ module.exports = {
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: '[name].[contentHash].css',
+      filename: '[name].[contentHash].awesome.css',
     }),
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
