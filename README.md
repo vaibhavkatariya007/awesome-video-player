@@ -4,7 +4,7 @@
 
 ![AwesomePlayer](https://vaibhavkatariya007.github.io/awesome-video-player/AwsomePlayer_ScreenShot1.png)
 
-![AwesomePlayer2](https://vaibhavkatariya007.github.io/awesome-video-player/AwsomePlayer_ScreenShot2.png))
+![AwesomePlayer2](https://vaibhavkatariya007.github.io/awesome-video-player/AwsomePlayer_ScreenShot2.png)
 
 ## Visit following link
 
