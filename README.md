@@ -1,6 +1,6 @@
 # Awesome Player
 
-## It a free player written in pure javascript. Anybody can use the code refrence for their personal/commercial use.
+## It a free player written in pure javascript. Anybody can use the code reference for their personal/commercial use.
 
 ![AwesomePlayer](https://vaibhavkatariya007.github.io/awesome-video-player/AwsomePlayer_ScreenShot1.png)
 
