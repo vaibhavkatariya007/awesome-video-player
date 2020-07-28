@@ -1,3 +1,317 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol,
+ul {
+  list-style: none;
+}
+blockquote,
+q {
+  quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: '';
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* Generic webpage styles*/
+body {
+  font-family: sans-serif;
+  font-size: 15px;
+}
+
+/* Let's get this party started */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  background: rgb(128 16 16);
+  -webkit-box-shadow: inset 0 0 6px rgb(128 16 16);
+}
+::-webkit-scrollbar-thumb:window-inactive {
+  background: rgb(128 16 16);
+}
+
+/* Header-css */
+#header {
+  background-color: rgb(128 16 16);
+  text-align: center;
+  padding: 10px;
+  border-bottom: 1px solid rgb(8 8 8);
+  color: #fff;
+}
+#header h1 {
+  font-size: 30px;
+  font-family: cursive;
+}
+#header > .features {
+  padding: 5px;
+  font-size: 8px;
+  margin-top: 5px;
+  text-decoration: underline;
+}
+#header > .features > span:first-child {
+  border-right: 1px solid #000;
+  margin-right: 5px;
+  padding-right: 10px;
+}
+
+/* content css */
+#content {
+  background-image: url(dirt-texture.png);
+  background-size: contain;
+  background-color: rgb(29 29 29);
+  height: 100vh;
+}
+#video-box {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 15px;
+}
+
+/** Footer Styles*/
+#footer {
+  background-color: #000;
+  text-align: center;
+  text-align: center;
+  color: rgb(255, 255, 255);
+  padding: 10px;
+  font-size: 13px;
+  border-top: 1px solid rgb(128 16 16);
+}
+
+/*==== Fix for mobile devices  ====*/
+
+@media only screen and (max-width: 600px) {
+  #video-box {
+    display: block;
+    justify-content: initial;
+    padding: 0px 10px;
+  }
+  #header h1 {
+    font-size: 18px;
+    font-family: cursive;
+  }
+  #header {
+    padding: 5px;
+  }
+  #header > .features {
+    margin-top: 5px;
+  }
+  #content {
+    background-image: none;
+    height: 100%;
+    padding-bottom: 10px;
+  }
+}
+
+/** Video Filters */
+
+.blur {
+  -webkit-filter: blur(3px);
+  -moz-filter: blur(3px);
+  -o-filter: blur(3px);
+  -ms-filter: blur(3px);
+  filter: blur(3px);
+}
+
+.brightness {
+  -webkit-filter: brightness(5);
+  -moz-filter: brightness(5);
+  -o-filter: brightness(5);
+  -ms-filter: brightness(5);
+  filter: brightness(5);
+}
+
+.contrast {
+  -webkit-filter: contrast(8);
+  -moz-filter: contrast(8);
+  -o-filter: contrast(8);
+  -ms-filter: contrast(8);
+  filter: contrast(8);
+}
+
+.hue-rotate {
+  -webkit-filter: hue-rotate(90deg);
+  -moz-filter: hue-rotate(90deg);
+  -o-filter: hue-rotate(90deg);
+  -ms-filter: hue-rotate(90deg);
+  filter: hue-rotate(90deg);
+}
+
+.hue-rotate2 {
+  -webkit-filter: hue-rotate(180deg);
+  -moz-filter: hue-rotate(180deg);
+  -o-filter: hue-rotate(180deg);
+  -ms-filter: hue-rotate(180deg);
+  filter: hue-rotate(180deg);
+}
+
+.hue-rotate3 {
+  -webkit-filter: hue-rotate(270deg);
+  -moz-filter: hue-rotate(270deg);
+  -o-filter: hue-rotate(270deg);
+  -ms-filter: hue-rotate(270deg);
+  filter: hue-rotate(270deg);
+}
+
+.saturate {
+  -webkit-filter: saturate(10);
+  -moz-filter: saturate(10);
+  -o-filter: saturate(10);
+  -ms-filter: saturate(10);
+  filter: saturate(10);
+}
+
+.grayscale {
+  -webkit-filter: grayscale(1);
+  -moz-filter: grayscale(1);
+  -o-filter: grayscale(1);
+  -ms-filter: grayscale(1);
+  filter: grayscale(1);
+}
+
+.sepia {
+  -webkit-filter: sepia(1);
+  -moz-filter: sepia(1);
+  -o-filter: sepia(1);
+  -ms-filter: sepia(1);
+  filter: sepia(1);
+}
+
+.invert {
+  -webkit-filter: invert(1);
+  -moz-filter: invert(1);
+  -o-filter: invert(1);
+  -ms-filter: invert(1);
+  filter: invert(1);
+}
+
 #awesome-video-canvas:picture-in-picture {
   border-radius: 50%;
 }
@@ -405,3 +719,4 @@ video {
     display: none;
   }
 }
+

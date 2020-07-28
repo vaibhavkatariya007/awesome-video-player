@@ -219,6 +219,7 @@
         return;
       }
       const recordStopButton = CONF.DOC.querySelector('#recordStop');
+
       const Child = recordStopButton.childNodes;
       if (
         !CONF.isRecording &&
@@ -230,16 +231,19 @@
         const { RECORDING_DIV, RECORDING_DATA } = renderRecordingStatus();
         recordingElements = RECORDING_DATA;
         mediaRecorder.start();
+        recordStopButton.className = 'on';
+        recordStopButton.title = 'Stop Video Recording';
         Child[0].classList.add('fa-stop');
         Child[0].classList.remove('fa-video-camera');
-        Child[0].title = 'Stop Video Recording';
+
         CONF.isRecording = true;
         const el = CONF.DOC.querySelector('#video-player');
         el.appendChild(RECORDING_DIV);
       } else {
+        recordStopButton.className = 'off';
+        recordStopButton.title = 'Start Video Recording';
         Child[0].classList.add('fa-video-camera');
         Child[0].classList.remove('fa-stop');
-        Child[0].title = 'Start Video Recording';
         if (mediaRecorder.state !== 'inactive') {
           mediaRecorder.stop();
         }
@@ -255,6 +259,10 @@
       const videoCanvas = CONF.DOC.querySelector('video');
       const playPauseButton = CONF.DOC.querySelector('#playPause');
       const Child = playPauseButton.childNodes;
+
+      playPauseButton.className = CONF.isPlaying ? 'on' : 'off';
+      playPauseButton.title = CONF.isPlaying ? 'Play Video' : 'Pause Video';
+
       if (!CONF.isPlaying) {
         videoCanvas.play();
         if (mediaRecorder.state === 'paused') {
@@ -263,7 +271,6 @@
         CONF.isPlaying = true;
         Child[0].classList.add('fa-pause');
         Child[0].classList.remove('fa-play');
-        Child[0].title = 'Pause Video';
         if (mediaRecorder.state !== 'inactive') {
           recordingElements && recordingElements.start();
         }
@@ -275,8 +282,6 @@
         }
         Child[0].classList.add('fa-play');
         Child[0].classList.remove('fa-pause');
-        Child[0].title = 'Play Video';
-
         if (mediaRecorder.state !== 'inactive') {
           recordingElements && recordingElements.stop();
         }
@@ -290,15 +295,39 @@
       const muteUnmuteButton = CONF.DOC.querySelector('#muteUnmute');
       videoCanvas.muted = !videoCanvas.muted;
       const Child = muteUnmuteButton.childNodes;
+      muteUnmuteButton.className = videoCanvas.muted ? 'off' : 'on';
+      muteUnmuteButton.title = videoCanvas.muted
+        ? 'Voice Recording Stopped'
+        : 'Voice Recording';
+
       if (videoCanvas.muted) {
         Child[0].classList.add('fa-microphone-slash');
         Child[0].classList.remove('fa-microphone');
-        Child[0].title = 'Voice Recording Stopped';
       } else {
         Child[0].classList.add('fa-microphone');
         Child[0].classList.remove('fa-microphone-slash');
-        Child[0].title = 'Voice Recording';
       }
+    }
+  }
+
+  function onPipMode() {
+    const videoCanvas = CONF.DOC.getElementById('awesome-video-canvas');
+    const pipButton = CONF.DOC.getElementById('onPipMode');
+
+    if ('pictureInPictureEnabled' in document) {
+      pipButton.addEventListener('click', () => {
+        if (CONF.DOC.pictureInPictureElement) {
+          pipButton.className = 'off';
+          CONF.DOC.exitPictureInPicture().catch((error) => {
+            // Error handling
+          });
+        } else {
+          pipButton.className = 'on';
+          videoCanvas.requestPictureInPicture().catch((error) => {
+            // Error handling
+          });
+        }
+      });
     }
   }
 
@@ -314,23 +343,30 @@
     {
       func: null,
       buttonId: 'recordStop',
-      buttonClasses: [],
+      buttonClasses: ['off'],
       iconDefaultClass: 'fa-video-camera',
       title: 'Start Video Recording',
     },
     {
       func: null,
       buttonId: 'playPause',
-      buttonClasses: [],
+      buttonClasses: ['on'],
       iconDefaultClass: 'fa-pause',
       title: 'Pause Video',
     },
     {
       func: onMuteUnmute,
       buttonId: 'muteUnmute',
-      buttonClasses: [],
+      buttonClasses: ['on'],
       iconDefaultClass: 'fa-microphone',
       title: 'Voice Recording',
+    },
+    {
+      func: onPipMode,
+      buttonId: 'onPipMode',
+      buttonClasses: ['off'],
+      iconDefaultClass: 'fa-picture-o',
+      title: 'Pip Mode Off',
     },
   ];
 

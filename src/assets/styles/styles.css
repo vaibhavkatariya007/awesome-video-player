@@ -20,28 +20,30 @@ body {
 ::-webkit-scrollbar-thumb {
   -webkit-border-radius: 10px;
   border-radius: 10px;
-  background: #fdd007;
-  -webkit-box-shadow: inset 0 0 6px #fdd007;
+  background: rgb(128 16 16);
+  -webkit-box-shadow: inset 0 0 6px rgb(128 16 16);
 }
 ::-webkit-scrollbar-thumb:window-inactive {
-  background: #fdd007;
+  background: rgb(128 16 16);
 }
 
 /* Header-css */
 #header {
-  background-color: #fdd007;
+  background-color: rgb(128 16 16);
   text-align: center;
-  padding: 20px;
-  border-bottom: 1px solid rgb(249, 249, 249);
+  padding: 10px;
+  border-bottom: 1px solid rgb(8 8 8);
+  color: #fff;
 }
 #header h1 {
-  font-size: 40px;
+  font-size: 30px;
   font-family: cursive;
 }
 #header > .features {
   padding: 5px;
-  font-size: 12px;
-  margin-top: 15px;
+  font-size: 8px;
+  margin-top: 5px;
+  text-decoration: underline;
 }
 #header > .features > span:first-child {
   border-right: 1px solid #000;
@@ -53,13 +55,13 @@ body {
 #content {
   background-image: url('../dirt-texture.png');
   background-size: contain;
-  background-color: rgb(139, 139, 139);
+  background-color: rgb(29 29 29);
   height: 100vh;
 }
 #video-box {
   display: flex;
   justify-content: space-evenly;
-  padding: 30px;
+  padding: 15px;
 }
 
 /** Footer Styles*/
@@ -70,7 +72,7 @@ body {
   color: rgb(255, 255, 255);
   padding: 10px;
   font-size: 13px;
-  border-top: 1px solid rgb(207, 207, 207);
+  border-top: 1px solid rgb(128 16 16);
 }
 
 /*==== Fix for mobile devices  ====*/

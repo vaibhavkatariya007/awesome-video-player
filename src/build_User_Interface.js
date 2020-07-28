@@ -185,6 +185,7 @@ function createVideoPlayer(controlsData, enableCaptureImage) {
   const VIDEO_CANVAS = CONF.DOC.createElement('div');
   VIDEO_CANVAS.classList.add('video-canvas');
   const VIDEO_TAG = CONF.DOC.createElement('video');
+  VIDEO_TAG.id = 'awesome-video-canvas';
   VIDEO_TAG.onclick = applyFilters;
   VIDEO_TAG.innerHTML = 'Your browser does not support the video tag.';
   VIDEO_CANVAS.appendChild(VIDEO_TAG);

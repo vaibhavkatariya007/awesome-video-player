@@ -27,7 +27,7 @@ module.exports = {
       },
     ],
   },
-  mode: 'production',
+  mode: 'development',
   devServer: {
     // default port is 8080
     port: 3000,
@@ -66,7 +66,7 @@ module.exports = {
     }),
   ],
   optimization: {
-    minimizer: [new OptimizeCssAssetsPlugin(), new TerserPlugin()],
+    // minimizer: [new OptimizeCssAssetsPlugin(), new TerserPlugin()],
     splitChunks: {
       cacheGroups: {
         vendors: {
